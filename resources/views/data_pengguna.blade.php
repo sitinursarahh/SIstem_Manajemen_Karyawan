@@ -98,11 +98,25 @@
     <div class="sidebar" id="sidebar">
         <h2>Presensiku</h2>
         <ul>
-            <li><a href="{{ route('dashboard.index') }}">Home</a></li>
-            <li><a href="{{ route('dashboard.showDataPengguna') }}">Data Pengguna</a></li>
+        <li><a href="{{ route('dashboard.index') }}">Home</a></li>
+            @can('admin')
+                <li><a href="{{ route('dashboard.showDataPengguna') }}">Data Pengguna</a></li>
+            @endcan
+            @cannot('admin')
             <li><a href="{{ route('dashboard.absenKaryawan') }}">Absen</a></li>
+            @endcannot
+            @can('admin')
+            <li><a href="{{ route('riwayat_absen.index') }}">Riwayat Absen</a></li>
+            @endcan
             <li><a href="{{ route('profil.show') }}">Profil</a></li>
-            <li><a href="#">Informasi</a></li>
+            @cannot('admin')
+            <li><a href="{{ route('pengumumanUser.indexUser') }}">Pengumuman</a></li>
+            <li><a href="{{ route('informasiUser.gaji') }}">Informasi</a></li>
+            @endcannot
+            @can('admin')
+            <li><a href="{{ route('pengumuman.index') }}">Pengumuman</a></li>
+            <li><a href="{{ route('informasi.gaji') }}">Informasi</a></li>
+            @endcan
         </ul>
         <div class="logout">
             <a href="{{ route('login.logout') }}" class="btn btn-danger">Logout</a>
